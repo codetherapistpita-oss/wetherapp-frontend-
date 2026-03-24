@@ -1,109 +1,173 @@
-# SkyPulse Weather
+<div align="center">
 
-A **modern, responsive weather dashboard** (HTML, CSS, vanilla JavaScript) with city search, hourly / weekly toggles, °C / °F units, and a highlights grid (UV, wind, sunrise/sunset, humidity, visibility, wind direction).  
-This repo is a **redesign and hardening** of the open-source **WeatherVista** project, adapted and maintained by **Code Therapist**.
+# 🌤️ SkyPulse Weather
 
-### Live demo (GitHub Pages)
+[![Live demo](https://img.shields.io/badge/🌐_Live-GitHub_Pages-6c63ff?style=for-the-badge&logo=github)](https://codetherapistpita-oss.github.io/wetherapp-frontend-/)
+[![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE.md)
+[![API](https://img.shields.io/badge/API-Visual_Crossing-f59e0b?style=for-the-badge)](https://www.visualcrossing.com/weather-api/)
 
-After you enable **Pages** for this repository, your site will be available at:
+<img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=600&size=22&duration=3000&pause=1200&color=6C63FF&center=true&vCenter=true&width=520&lines=Responsive+weather+dashboard;HTML+%E2%80%A2+CSS+%E2%80%A2+Vanilla+JavaScript;Search+%E2%80%A2+hourly%2Fweek+%E2%80%A2+%C2%B0C+%2F+%C2%B0F" alt="Typing intro" />
 
-**[https://codetherapistpita-oss.github.io/wetherapp-frontend-/](https://codetherapistpita-oss.github.io/wetherapp-frontend/)**
+<br/>
 
-> **Important:** Weather data requires a **free [Visual Crossing Weather API](https://www.visualcrossing.com/weather-api/)** key. Add it to `weather-config.js` (see [Setup](#setup)).
+<img src="https://skillicons.dev/icons?i=html,css,js,git,github,vscode&perline=6" alt="Tech stack icons" />
 
----
+<sub>Icons via <a href="https://skillicons.dev">skillicons.dev</a> · Typing line via <a href="https://github.com/DenverCoder1/readme-typing-svg">readme-typing-svg</a></sub>
 
-## Screenshots
-
-<p align="center">
-  <img src="readme-assets/screenshot-01-dashboard.png" alt="SkyPulse Weather — dashboard view" width="720" />
-</p>
-<p align="center"><em>Main layout — sidebar, forecast strip, and highlights (API key banner shows until configured).</em></p>
-
-<p align="center">
-  <img src="readme-assets/screenshot-02-scroll.png" alt="SkyPulse Weather — full page" width="720" />
-</p>
-<p align="center"><em>Full-page view including highlight cards.</em></p>
+</div>
 
 ---
 
-## Features
+## 👀 Preview
 
-- Responsive **sidebar + main** layout (mobile-first, large screens side-by-side)
-- **Visual Crossing** timeline API (metric units in request; °F converted in UI when selected)
-- **Today / Week** forecast modes and **°C / °F** toggle
-- **City autocomplete** (bundled city list)
-- **Phosphor** icons (no Font Awesome kit dependency)
-- **Wind direction** card shows degrees + compass label (replaces misleading “air quality” mapping on wind data)
-- **API key** kept out of source history going forward — configure locally via `weather-config.js`
-- Clear **status banner** when the API key is missing or a request fails
+| | |
+|:---:|:---:|
+| <img src="readme-assets/screenshot-01-dashboard.png" width="360" alt="Dashboard" /> | <img src="readme-assets/screenshot-02-scroll.png" width="360" alt="Full page" /> |
+| **Dashboard** | **Highlights & cards** |
 
 ---
 
-## Setup
+## 📊 At a glance
 
-1. **Clone**
-   ```bash
-   git clone https://github.com/codetherapistpita-oss/wetherapp-frontend-.git
-   cd wetherapp-frontend-
-   ```
-   *(Folder name matches the repo; if Git uses a different directory, `cd` into it.)*
-
-2. **API key** — create a free account at [Visual Crossing](https://www.visualcrossing.com/weather-api/), copy your key, and paste it into **`weather-config.js`**:
-   ```javascript
-   window.WEATHER_VC_KEY = "YOUR_KEY_HERE";
-   ```
-3. **Run locally** — open `index.html` via a local server (recommended so `fetch` behaves predictably):
-   ```bash
-   npx serve .
-   ```
-4. **GitHub Pages** — Repository → **Settings** → **Pages** → deploy from branch **`main`** (root). Then open the **live demo** URL above.
-
----
-
-## Tech stack
-
-- HTML5 · CSS3 (custom properties, flexbox, grid) · JavaScript (ES5-compatible style)
-- [Phosphor Icons](https://phosphoricons.com/) · [Outfit](https://fonts.google.com/specimen/Outfit) (Google Fonts)
-- [Visual Crossing Weather API](https://www.visualcrossing.com/weather-api/)
-
----
-
-## Project structure
-
+```mermaid
+pie title Code focus (approx.)
+    "JavaScript" : 72
+    "CSS" : 18
+    "HTML" : 10
 ```
-├── index.html
-├── style.css
-├── script.js
-├── weather-config.js   ← add your API key here
-├── readme-assets/      ← README screenshots
-├── images/             ← optional assets
-├── LICENSE.md
-└── README.md
+
+```mermaid
+pie title App features (concept split)
+    "Forecast views" : 35
+    "Highlights cards" : 25
+    "Search + list" : 22
+    "Units + location" : 18
+```
+
+```mermaid
+flowchart LR
+  subgraph Browser
+    A[index.html]
+    B[style.css]
+    C[script.js]
+  end
+  subgraph APIs
+    D[Visual Crossing]
+    E[Geo lookup]
+  end
+  A --> C
+  B --> A
+  C --> D
+  C --> E
 ```
 
 ---
 
-## Credits & license
-
-- **SkyPulse Weather** — UI/UX refresh, API key handling, wind-direction card, responsive layout, documentation: **Code Therapist** (see below).
-- **Original app — WeatherVista** by **Mohammad Wasim Tikki**: [WeatherVista-Interactive-Weather-App](https://github.com/wasimtikki120/WeatherVista-Interactive-Weather-App) (MIT). This derivative retains **MIT** terms — see [`LICENSE.md`](LICENSE.md).
-
----
-
-## Built by — Code Therapist
+## ✨ Features (quick)
 
 | | |
 |--|--|
-| **Role** | Creative developer · full-stack & UI-focused builds |
-| **GitHub** | [@codetherapistpita-oss](https://github.com/codetherapistpita-oss) |
-| **Portfolio** | [codetherapistpita-oss.github.io/codetherapist-portfolio](https://codetherapistpita-oss.github.io/codetherapist-portfolio/) |
-| **LinkedIn** | [linkedin.com/in/code-therapist-1142243b5](https://www.linkedin.com/in/code-therapist-1142243b5) |
-
-The **in-app footer** credits **Code Therapist** by name only (no outbound links), so forks stay clean for other users.
+| 📱 | **Responsive** sidebar + main panel |
+| 🔎 | **City search** + bundled autocomplete list |
+| ⏰ | **Today** (hourly) / **Week** toggle |
+| 🌡️ | **°C** / **°F** switch |
+| 🧭 | **Wind direction** (° + compass) — not fake “AQI” |
+| 🔑 | **API key** in `weather-config.js` only (no keys in `script.js`) |
+| ⚠️ | **Banner** if key missing or request fails |
 
 ---
 
-## Contributing
+## 🛠️ Stack
 
-Issues and PRs are welcome in **[this repository](https://github.com/codetherapistpita-oss/wetherapp-frontend-)**. Please respect the original MIT license and keep API keys out of commits (use `weather-config.js` locally or private env patterns).
+| ![html](https://img.shields.io/badge/HTML5-e34f26?style=flat&logo=html5&logoColor=white) | ![css](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | ![api](https://img.shields.io/badge/API-Visual_Crossing-f59e0b?style=flat) |
+|:---:|:---:|:---:|:---:|
+| Structure | Variables · flex · grid | `fetch` · DOM | Timeline weather |
+
+<p align="center">
+<img src="https://img.shields.io/badge/Icons-Phosphor-6c63ff?style=for-the-badge" alt="Phosphor" />
+<img src="https://img.shields.io/badge/Font-Outfit-0f172a?style=for-the-badge" alt="Outfit" />
+</p>
+
+---
+
+## 🚀 Setup
+
+<details>
+<summary><b>1 · Clone</b></summary>
+
+```bash
+git clone https://github.com/codetherapistpita-oss/wetherapp-frontend-.git
+cd wetherapp-frontend-
+```
+
+</details>
+
+<details>
+<summary><b>2 · API key → <code>weather-config.js</code></b></summary>
+
+```javascript
+window.WEATHER_VC_KEY = "YOUR_KEY_HERE";
+```
+
+Free key: [visualcrossing.com/weather-api](https://www.visualcrossing.com/weather-api/)
+
+</details>
+
+<details>
+<summary><b>3 · Run locally</b></summary>
+
+```bash
+npx serve .
+```
+
+</details>
+
+<details>
+<summary><b>4 · GitHub Pages</b></summary>
+
+**Settings → Pages →** branch `main` / root → then open the **Live demo** badge at the top.
+
+</details>
+
+---
+
+## 📁 Files
+
+```mermaid
+flowchart LR
+  I[index.html] --> J[script.js]
+  I --> S[style.css]
+  J --> W[weather-config.js]
+  R[readme-assets] --- I
+```
+
+---
+
+## 🙏 Credits
+
+| | |
+|--|--|
+| **SkyPulse** | UI refresh, API safety, docs — **Code Therapist** |
+| **WeatherVista** | Original app — [wasimtikki120/WeatherVista…](https://github.com/wasimtikki120/WeatherVista-Interactive-Weather-App) · MIT |
+
+---
+
+## 👤 Code Therapist
+
+<p align="center">
+
+[![GitHub](https://img.shields.io/badge/GitHub-codetherapistpita--oss-181717?style=flat&logo=github)](https://github.com/codetherapistpita-oss)
+[![Portfolio](https://img.shields.io/badge/Portfolio-live-6c63ff?style=flat&logo=googlechrome)](https://codetherapistpita-oss.github.io/codetherapist-portfolio/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-connect-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/code-therapist-1142243b5)
+
+</p>
+
+<sub>In-app footer: name only · no links (fork-friendly).</sub>
+
+---
+
+<div align="center">
+
+**⭐ Star the repo** if this helped · PRs welcome · keep API keys out of git
+
+</div>
