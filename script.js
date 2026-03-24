@@ -43,8 +43,11 @@ function getDateTime() {
     "Friday",
     "Saturday",
   ];
-  // 12 hours format
+  // 12-hour format (midnight → 12)
   hour = hour % 12;
+  if (hour === 0) {
+    hour = 12;
+  }
   if (hour < 10) {
     hour = "0" + hour;
   }
@@ -77,12 +80,53 @@ function getPublicIp() {
     });
 }
 
-getPublicIp();
+if (getVisualCrossingKey()) {
+  getPublicIp();
+} else {
+  showConfigMessage(
+    "Add your Visual Crossing API key in weather-config.js to load weather data."
+  );
+}
+
+function getVisualCrossingKey() {
+  return typeof window !== "undefined" && window.WEATHER_VC_KEY
+    ? String(window.WEATHER_VC_KEY).trim()
+    : "";
+}
+
+function showConfigMessage(msg) {
+  var el = document.getElementById("app-status");
+  if (el) {
+    el.hidden = false;
+    el.textContent = msg;
+  }
+}
+
+function hideConfigMessage() {
+  var el = document.getElementById("app-status");
+  if (el) {
+    el.hidden = true;
+    el.textContent = "";
+  }
+}
 
 // function to get weather data
 function getWeatherData(city, unit, hourlyorWeek) {
+  var apiKey = getVisualCrossingKey();
+  if (!apiKey) {
+    showConfigMessage(
+      "Add your free Visual Crossing API key in weather-config.js (see README)."
+    );
+    return;
+  }
+  hideConfigMessage();
+  var encCity = encodeURIComponent(city);
   fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=EJ6UBL2JEQGYB3AA4ENASN62J&contentType=json`,
+    "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
+      encCity +
+      "?unitGroup=metric&key=" +
+      encodeURIComponent(apiKey) +
+      "&contentType=json",
     {
       method: "GET",
       headers: {},
@@ -108,8 +152,12 @@ function getWeatherData(city, unit, hourlyorWeek) {
       updateHumidityStatus(today.humidity);
       visibilty.innerText = today.visibility;
       updateVisibiltyStatus(today.visibility);
-      airQuality.innerText = today.winddir;
-      updateAirQualityStatus(today.winddir);
+      var wdir =
+        today.winddir !== undefined && today.winddir !== null
+          ? today.winddir
+          : 0;
+      airQuality.innerText = wdir + "°";
+      updateWindDirectionStatus(wdir);
       if (hourlyorWeek === "hourly") {
         updateForecast(data.days[0].hours, unit, "day");
       } else {
@@ -118,8 +166,10 @@ function getWeatherData(city, unit, hourlyorWeek) {
       sunRise.innerText = covertTimeTo12HourFormat(today.sunrise);
       sunSet.innerText = covertTimeTo12HourFormat(today.sunset);
     })
-    .catch((err) => {
-      alert("City not found in our database");
+    .catch(function () {
+      showConfigMessage(
+        "Could not load weather. Check the city name, your API key, and network."
+      );
     });
 }
 
@@ -202,16 +252,29 @@ function changeBackground(condition) {
   body.style.backgroundImage = `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(${bg})`;
 }
 
-//get hours from hh:mm:ss
+// get hours from "HH:mm:ss" or ISO datetime
 function getHour(time) {
-  let hour = time.split(":")[0];
-  let min = time.split(":")[1];
-  if (hour > 12) {
-    hour = hour - 12;
-    return `${hour}:${min} PM`;
-  } else {
-    return `${hour}:${min} AM`;
+  if (!time) {
+    return "—";
   }
+  var raw = String(time);
+  if (raw.indexOf("T") !== -1) {
+    raw = raw.split("T")[1] || raw;
+  }
+  var parts = raw.split(":");
+  var hour = parseInt(parts[0], 10);
+  var min = parts[1] || "00";
+  if (isNaN(hour)) {
+    return "—";
+  }
+  var pm = hour >= 12;
+  if (hour > 12) {
+    hour -= 12;
+  }
+  if (hour === 0) {
+    hour = 12;
+  }
+  return hour + ":" + min + " " + (pm ? "PM" : "AM");
 }
 
 // convert time to 12 hour format
@@ -289,21 +352,15 @@ function updateVisibiltyStatus(visibility) {
   }
 }
 
-// function to get air quality status
-function updateAirQualityStatus(airquality) {
-  if (airquality <= 50) {
-    airQualityStatus.innerText = "Good👌";
-  } else if (airquality <= 100) {
-    airQualityStatus.innerText = "Moderate😐";
-  } else if (airquality <= 150) {
-    airQualityStatus.innerText = "Unhealthy for Sensitive Groups😷";
-  } else if (airquality <= 200) {
-    airQualityStatus.innerText = "Unhealthy😷";
-  } else if (airquality <= 250) {
-    airQualityStatus.innerText = "Very Unhealthy😨";
-  } else {
-    airQualityStatus.innerText = "Hazardous😱";
+function updateWindDirectionStatus(degrees) {
+  var d = Number(degrees);
+  if (isNaN(d)) {
+    airQualityStatus.innerText = "—";
+    return;
   }
+  var dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+  var ix = Math.round(d / 45) % 8;
+  airQualityStatus.innerText = dirs[ix];
 }
 
 // function to handle search form
@@ -367,14 +424,14 @@ search.addEventListener("input", function (e) {
 search.addEventListener("keydown", function (e) {
   var x = document.getElementById("suggestions");
   if (x) x = x.getElementsByTagName("li");
-  if (e.keyCode == 40) {
+  if (e.key === "ArrowDown") {
     /*If the arrow DOWN key
       is pressed,
       increase the currentFocus variable:*/
     currentFocus++;
     /*and and make the current item more visible:*/
     addActive(x);
-  } else if (e.keyCode == 38) {
+  } else if (e.key === "ArrowUp") {
     /*If the arrow UP key
       is pressed,
       decrease the currentFocus variable:*/
@@ -382,7 +439,7 @@ search.addEventListener("keydown", function (e) {
     /*and and make the current item more visible:*/
     addActive(x);
   }
-  if (e.keyCode == 13) {
+  if (e.key === "Enter") {
     /*If the ENTER key is pressed, prevent the form from being submitted,*/
     e.preventDefault();
     if (currentFocus > -1) {
