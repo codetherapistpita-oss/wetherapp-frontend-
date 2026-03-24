@@ -14,15 +14,25 @@
 
 <sub>Icons via <a href="https://skillicons.dev">skillicons.dev</a> · Typing line via <a href="https://github.com/DenverCoder1/readme-typing-svg">readme-typing-svg</a></sub>
 
+<br/>
+
+### 🔗 Open the live site (GitHub Pages)
+
+**👉 [https://codetherapistpita-oss.github.io/wetherapp-frontend-/](https://codetherapistpita-oss.github.io/wetherapp-frontend-/)**
+
+*Click the URL above to open SkyPulse Weather in your browser. Add your API key in `weather-config.js` for live weather data.*
+
 </div>
 
 ---
 
 ## 👀 Preview
 
+*Click a screenshot to open the **[live app](https://codetherapistpita-oss.github.io/wetherapp-frontend-/)**.*
+
 | | |
 |:---:|:---:|
-| <img src="readme-assets/screenshot-01-dashboard.png" width="360" alt="Dashboard" /> | <img src="readme-assets/screenshot-02-scroll.png" width="360" alt="Full page" /> |
+| <a href="https://codetherapistpita-oss.github.io/wetherapp-frontend-/"><img src="readme-assets/screenshot-01-dashboard.png" width="360" alt="Dashboard — click to open live site" /></a> | <a href="https://codetherapistpita-oss.github.io/wetherapp-frontend-/"><img src="readme-assets/screenshot-02-scroll.png" width="360" alt="Full page — click to open live site" /></a> |
 | **Dashboard** | **Highlights & cards** |
 
 ---
@@ -168,6 +178,6 @@ flowchart LR
 
 <div align="center">
 
-**⭐ Star the repo** if this helped · PRs welcome · keep API keys out of git
+**[🌐 Open live site](https://codetherapistpita-oss.github.io/wetherapp-frontend-/)** · **⭐ Star the repo** if this helped · PRs welcome · keep API keys out of git
 
 </div>
