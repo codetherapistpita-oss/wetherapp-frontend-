@@ -47,6 +47,8 @@ After you enable **Pages** for this repository, your site will be available at:
    git clone https://github.com/codetherapistpita-oss/wetherapp-frontend-.git
    cd wetherapp-frontend-
    ```
+   *(Folder name matches the repo; if Git uses a different directory, `cd` into it.)*
+
 2. **API key** — create a free account at [Visual Crossing](https://www.visualcrossing.com/weather-api/), copy your key, and paste it into **`weather-config.js`**:
    ```javascript
    window.WEATHER_VC_KEY = "YOUR_KEY_HERE";
